@@ -32,7 +32,7 @@ def test_server_wins():
 
     assert tennis_game.is_winner(TennisPlayer.Server)
 
-    assert tennis_game.get_score() == "Win:30"
+    assert tennis_game.get_score() == "Server Wins"
 
 
 def test_returner_wins():
@@ -42,7 +42,7 @@ def test_returner_wins():
 
     assert tennis_game.is_winner(TennisPlayer.Receiver)
 
-    assert tennis_game.get_score() == "30:Win"
+    assert tennis_game.get_score() == "Receiver Wins"
 
 
 def test_server_advantage():
@@ -52,7 +52,7 @@ def test_server_advantage():
 
     assert not tennis_game.is_winner(TennisPlayer.Server)
 
-    assert tennis_game.get_score() == "A:40"
+    assert tennis_game.get_score() == "Advantage Server"
 
 
 def test_returner_advantage():
@@ -62,7 +62,7 @@ def test_returner_advantage():
 
     assert not tennis_game.is_winner(TennisPlayer.Receiver)
 
-    assert tennis_game.get_score() == "40:A"
+    assert tennis_game.get_score() == "Advantage Receiver"
 
 
 def test_server_deuce():
@@ -72,7 +72,7 @@ def test_server_deuce():
 
     assert not tennis_game.is_winner(TennisPlayer.Server)
 
-    assert tennis_game.get_score() == "40:40"
+    assert tennis_game.get_score() == "Deuce"
 
 
 def test_returner_deuce():
@@ -82,7 +82,7 @@ def test_returner_deuce():
 
     assert not tennis_game.is_winner(TennisPlayer.Receiver)
 
-    assert tennis_game.get_score() == "40:40"
+    assert tennis_game.get_score() == "Deuce"
 
 
 def test_server_win_from_advantage():
@@ -92,7 +92,7 @@ def test_server_win_from_advantage():
 
     assert tennis_game.is_winner(TennisPlayer.Server)
 
-    assert tennis_game.get_score() == "Win:40"
+    assert tennis_game.get_score() == "Server Wins"
 
 
 def test_returner_win_from_advantage():
@@ -102,4 +102,4 @@ def test_returner_win_from_advantage():
 
     assert tennis_game.is_winner(TennisPlayer.Receiver)
 
-    assert tennis_game.get_score() == "40:Win"
+    assert tennis_game.get_score() == "Receiver Wins"

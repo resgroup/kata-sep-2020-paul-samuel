@@ -55,7 +55,18 @@ class TennisGame:
             raise ValueError('Invalid score: ' + str(score))
 
     def get_score(self):
-        return self._scores[TennisPlayer.Server].value + ":" + self._scores[TennisPlayer.Receiver].value
+        if self._scores[TennisPlayer.Server] == TennisScore.Win:
+            return "Server Wins"
+        elif self._scores[TennisPlayer.Receiver] == TennisScore.Win:
+            return "Receiver Wins"
+        elif self._scores[TennisPlayer.Server] == TennisScore.Advantage:
+            return "Advantage Server"
+        elif self._scores[TennisPlayer.Receiver] == TennisScore.Advantage:
+            return "Advantage Receiver"
+        elif (self._scores[TennisPlayer.Server] == TennisScore.Forty) and (self._scores[TennisPlayer.Receiver] == TennisScore.Forty):
+            return "Deuce"
+        else:
+            return self._scores[TennisPlayer.Server].value + ":" + self._scores[TennisPlayer.Receiver].value
 
     def is_winner(self, player):
         return self._scores[player] == TennisScore.Win
