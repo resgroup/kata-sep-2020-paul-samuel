@@ -6,6 +6,7 @@ class TennisScore(Enum):
     Fifteen = "15"
     Thirty = "30"
     Forty = "40"
+    Fifty = "50"
     Advantage = "A"
     Win = "Win"
 
@@ -43,10 +44,12 @@ class TennisGame:
         elif score == TennisScore.Thirty:
             return TennisScore.Forty, opponent_score
         elif score == TennisScore.Forty:
-            if opponent_score == TennisScore.Forty:
+            return TennisScore.Fifty, opponent_score
+        elif score == TennisScore.Fifty:
+            if opponent_score == TennisScore.Fifty:
                 return TennisScore.Advantage, opponent_score
             elif opponent_score == TennisScore.Advantage:
-                return TennisScore.Forty, TennisScore.Forty
+                return TennisScore.Fifty, TennisScore.Fifty
             else:
                 return TennisScore.Win, opponent_score
         elif score == TennisScore.Advantage:
@@ -63,7 +66,7 @@ class TennisGame:
             return "Advantage Server"
         elif self._scores[TennisPlayer.Receiver] == TennisScore.Advantage:
             return "Advantage Receiver"
-        elif (self._scores[TennisPlayer.Server] == TennisScore.Forty) and (self._scores[TennisPlayer.Receiver] == TennisScore.Forty):
+        elif (self._scores[TennisPlayer.Server] == TennisScore.Fifty) and (self._scores[TennisPlayer.Receiver] == TennisScore.Fifty):
             return "Deuce"
         else:
             return self._scores[TennisPlayer.Server].value + ":" + self._scores[TennisPlayer.Receiver].value

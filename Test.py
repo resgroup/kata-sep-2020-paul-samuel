@@ -26,7 +26,7 @@ def test_server_point():
 
 
 def test_server_wins():
-    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Thirty)
+    tennis_game = TennisGame(TennisScore.Fifty, TennisScore.Thirty)
 
     tennis_game.score_point(TennisPlayer.Server)
 
@@ -36,7 +36,7 @@ def test_server_wins():
 
 
 def test_returner_wins():
-    tennis_game = TennisGame(TennisScore.Thirty, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Thirty, TennisScore.Fifty)
 
     tennis_game.score_point(TennisPlayer.Receiver)
 
@@ -46,7 +46,7 @@ def test_returner_wins():
 
 
 def test_server_advantage():
-    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Fifty, TennisScore.Fifty)
 
     tennis_game.score_point(TennisPlayer.Server)
 
@@ -56,7 +56,7 @@ def test_server_advantage():
 
 
 def test_returner_advantage():
-    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Fifty, TennisScore.Fifty)
 
     tennis_game.score_point(TennisPlayer.Receiver)
 
@@ -66,7 +66,7 @@ def test_returner_advantage():
 
 
 def test_server_deuce():
-    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Advantage)
+    tennis_game = TennisGame(TennisScore.Fifty, TennisScore.Advantage)
 
     tennis_game.score_point(TennisPlayer.Server)
 
@@ -76,7 +76,7 @@ def test_server_deuce():
 
 
 def test_returner_deuce():
-    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Fifty)
 
     tennis_game.score_point(TennisPlayer.Receiver)
 
@@ -86,7 +86,7 @@ def test_returner_deuce():
 
 
 def test_server_win_from_advantage():
-    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Fifty)
 
     tennis_game.score_point(TennisPlayer.Server)
 
@@ -96,7 +96,7 @@ def test_server_win_from_advantage():
 
 
 def test_returner_win_from_advantage():
-    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Advantage)
+    tennis_game = TennisGame(TennisScore.Fifty, TennisScore.Advantage)
 
     tennis_game.score_point(TennisPlayer.Receiver)
 
