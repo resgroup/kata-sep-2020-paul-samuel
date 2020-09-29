@@ -1,42 +1,34 @@
-from Tennis import TennisGame, TennisScore
+from Tennis import TennisGame, TennisScore, TennisPlayer
 
 
 def test_first_point():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Zero)
-    tennis_game.set_score(False, TennisScore.Zero)
+    tennis_game = TennisGame(TennisScore.Zero, TennisScore.Zero)
 
-    tennis_game.score_point(True)
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert tennis_game.get_score() == "15:0"
 
 
 def test_returner_point():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Fifteen)
-    tennis_game.set_score(False, TennisScore.Fifteen)
+    tennis_game = TennisGame(TennisScore.Fifteen, TennisScore.Fifteen)
 
-    tennis_game.score_point(False)
+    tennis_game.score_point(TennisPlayer.Receiver)
 
     assert tennis_game.get_score() == "15:30"
 
 
 def test_server_point():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Thirty)
-    tennis_game.set_score(False, TennisScore.Thirty)
+    tennis_game = TennisGame(TennisScore.Thirty, TennisScore.Thirty)
 
-    tennis_game.score_point(True)
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert tennis_game.get_score() == "40:30"
 
 
 def test_server_wins():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Forty)
-    tennis_game.set_score(False, TennisScore.Thirty)
+    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Thirty)
 
-    tennis_game.score_point(True)
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert tennis_game.server_wins()
 
@@ -44,11 +36,9 @@ def test_server_wins():
 
 
 def test_returner_wins():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Thirty)
-    tennis_game.set_score(False, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Thirty, TennisScore.Forty)
 
-    tennis_game.score_point(False)
+    tennis_game.score_point(TennisPlayer.Receiver)
 
     assert tennis_game.returner_wins()
 
@@ -56,11 +46,9 @@ def test_returner_wins():
 
 
 def test_server_advantage():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Forty)
-    tennis_game.set_score(False, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Forty)
 
-    tennis_game.score_point(True)
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert not tennis_game.server_wins()
 
@@ -68,11 +56,9 @@ def test_server_advantage():
 
 
 def test_returner_advantage():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Forty)
-    tennis_game.set_score(False, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Forty)
 
-    tennis_game.score_point(False)
+    tennis_game.score_point(TennisPlayer.Receiver)
 
     assert not tennis_game.returner_wins()
 
@@ -80,10 +66,9 @@ def test_returner_advantage():
 
 
 def test_server_deuce():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Forty)
-    tennis_game.set_score(False, TennisScore.Advantage)
-    tennis_game.score_point(True)
+    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Advantage)
+
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert not tennis_game.server_wins()
 
@@ -91,11 +76,9 @@ def test_server_deuce():
 
 
 def test_returner_deuce():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Advantage)
-    tennis_game.set_score(False, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Forty)
 
-    tennis_game.score_point(False)
+    tennis_game.score_point(TennisPlayer.Receiver)
 
     assert not tennis_game.returner_wins()
 
@@ -103,11 +86,9 @@ def test_returner_deuce():
 
 
 def test_server_win_from_advantage():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Advantage)
-    tennis_game.set_score(False, TennisScore.Forty)
+    tennis_game = TennisGame(TennisScore.Advantage, TennisScore.Forty)
 
-    tennis_game.score_point(True)
+    tennis_game.score_point(TennisPlayer.Server)
 
     assert tennis_game.server_wins()
 
@@ -115,11 +96,9 @@ def test_server_win_from_advantage():
 
 
 def test_returner_win_from_advantage():
-    tennis_game = TennisGame()
-    tennis_game.set_score(True, TennisScore.Forty)
-    tennis_game.set_score(False, TennisScore.Advantage)
+    tennis_game = TennisGame(TennisScore.Forty, TennisScore.Advantage)
 
-    tennis_game.score_point(False)
+    tennis_game.score_point(TennisPlayer.Receiver)
 
     assert tennis_game.returner_wins()
 

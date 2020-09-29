@@ -10,14 +10,19 @@ class TennisScore(Enum):
     Win = "Win"
 
 
+class TennisPlayer(Enum):
+    Server = "Server"
+    Receiver = "Receiver"
+
+
 class TennisGame:
 
-    def __init__(self):
-        self._server_score = TennisScore.Zero
-        self._returner_score = TennisScore.Zero
+    def __init__(self, server_score, receiver_score):
+        self._server_score = server_score
+        self._returner_score = receiver_score
 
-    def score_point(self, is_server):
-        if is_server:
+    def score_point(self, player):
+        if player == TennisPlayer.Server:
             self._server_score, self._returner_score = self._add_to_existing_score(self._server_score, opponent_score=self._returner_score)
         else:
             self._returner_score, self._server_score = self._add_to_existing_score(self._returner_score, opponent_score=self._server_score)
@@ -41,12 +46,6 @@ class TennisGame:
             return TennisScore.Win, opponent_score
         else:
             raise ValueError('Invalid score: ' + str(score))
-
-    def set_score(self, is_server, score):
-        if is_server:
-            self._server_score = score
-        else:
-            self._returner_score = score
 
     def get_score(self):
         return self._server_score.value + ":" + self._returner_score.value
