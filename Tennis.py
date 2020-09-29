@@ -2,13 +2,13 @@ from enum import Enum
 
 
 class TennisScore(Enum):
-    Zero = "0"
-    Fifteen = "15"
-    Thirty = "30"
-    Forty = "40"
-    Fifty = "50"
-    Advantage = "A"
-    Win = "Win"
+    Zero = 0
+    Fifteen = 1
+    Thirty = 2
+    Forty = 3
+    Fifty = 4
+    Advantage = 5
+    Win = 6
 
 
 class TennisPlayer(Enum):
@@ -16,10 +16,13 @@ class TennisPlayer(Enum):
     Receiver = "Receiver"
 
 
+MAXIMUM_SCORE = TennisScore.Fifty
+
+
 class TennisGame:
 
     def __init__(self, server_score, receiver_score):
-        self._scores = { TennisPlayer.Server: server_score, TennisPlayer.Receiver: receiver_score }
+        self._scores = {TennisPlayer.Server: server_score, TennisPlayer.Receiver: receiver_score}
 
     def score_point(self, player):
         if player == TennisPlayer.Server:
@@ -37,25 +40,17 @@ class TennisGame:
 
     @staticmethod
     def _add_to_existing_score(score, opponent_score):
-        if score == TennisScore.Zero:
-            return TennisScore.Fifteen, opponent_score
-        elif score == TennisScore.Fifteen:
-            return TennisScore.Thirty, opponent_score
-        elif score == TennisScore.Thirty:
-            return TennisScore.Forty, opponent_score
-        elif score == TennisScore.Forty:
-            return TennisScore.Fifty, opponent_score
-        elif score == TennisScore.Fifty:
-            if opponent_score == TennisScore.Fifty:
+        if score == MAXIMUM_SCORE:
+            if opponent_score == MAXIMUM_SCORE:
                 return TennisScore.Advantage, opponent_score
             elif opponent_score == TennisScore.Advantage:
-                return TennisScore.Fifty, TennisScore.Fifty
+                return MAXIMUM_SCORE, MAXIMUM_SCORE
             else:
                 return TennisScore.Win, opponent_score
         elif score == TennisScore.Advantage:
             return TennisScore.Win, opponent_score
         else:
-            raise ValueError('Invalid score: ' + str(score))
+            return TennisScore(score.value + 1), opponent_score
 
     def get_score(self):
         if self._scores[TennisPlayer.Server] == TennisScore.Win:
@@ -66,10 +61,23 @@ class TennisGame:
             return "Advantage Server"
         elif self._scores[TennisPlayer.Receiver] == TennisScore.Advantage:
             return "Advantage Receiver"
-        elif (self._scores[TennisPlayer.Server] == TennisScore.Fifty) and (self._scores[TennisPlayer.Receiver] == TennisScore.Fifty):
+        elif (self._scores[TennisPlayer.Server] == MAXIMUM_SCORE) and (self._scores[TennisPlayer.Receiver] == MAXIMUM_SCORE):
             return "Deuce"
         else:
-            return self._scores[TennisPlayer.Server].value + ":" + self._scores[TennisPlayer.Receiver].value
+            return self.format_score(self._scores[TennisPlayer.Server]) + ":" + self.format_score(self._scores[TennisPlayer.Receiver])
+
+    @staticmethod
+    def format_score(score_value):
+        if score_value == TennisScore.Zero:
+            return "0"
+        elif score_value == TennisScore.Fifteen:
+            return "15"
+        elif score_value == TennisScore.Thirty:
+            return "30"
+        elif score_value == TennisScore.Forty:
+            return "40"
+        elif score_value == TennisScore.Fifty:
+            return "50"
 
     def is_winner(self, player):
         return self._scores[player] == TennisScore.Win
