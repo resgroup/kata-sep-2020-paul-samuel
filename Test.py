@@ -40,6 +40,8 @@ def test_server_wins():
 
     assert tennis_game.server_wins()
 
+    assert tennis_game.get_score() == "Win:30"
+
 
 def test_returner_wins():
     tennis_game = TennisGame()
@@ -49,6 +51,8 @@ def test_returner_wins():
     tennis_game.score_point(False)
 
     assert tennis_game.returner_wins()
+
+    assert tennis_game.get_score() == "30:Win"
 
 
 def test_server_advantage():
@@ -97,3 +101,27 @@ def test_returner_deuce():
     assert not tennis_game.returner_wins()
 
     assert tennis_game.get_score() == "40:40"
+
+
+def test_server_win_from_advantage():
+    tennis_game = TennisGame()
+    tennis_game.set_score(True, 'A')
+    tennis_game.set_score(False, 40)
+
+    tennis_game.score_point(True)
+
+    assert tennis_game.server_wins()
+
+    assert tennis_game.get_score() == "Win:40"
+
+
+def test_returner_win_from_advantage():
+    tennis_game = TennisGame()
+    tennis_game.set_score(True, 40)
+    tennis_game.set_score(False, 'A')
+
+    tennis_game.score_point(False)
+
+    assert tennis_game.returner_wins()
+
+    assert tennis_game.get_score() == "40:Win"

@@ -2,47 +2,46 @@
 class TennisGame:
 
     def __init__(self):
-        self.server_score = 0
-        self.returner_score = 0
+        self._server_score = 0
+        self._returner_score = 0
 
     def score_point(self, is_server):
         if is_server:
-            self.server_score = self.add_to_existing_score(self.server_score, opponent_score=self.returner_score)
+            self._server_score, self._returner_score = self._add_to_existing_score(self._server_score, opponent_score=self._returner_score)
         else:
-            self.returner_score = self.add_to_existing_score(self.returner_score, opponent_score=self.server_score)
+            self._returner_score, self._server_score = self._add_to_existing_score(self._returner_score, opponent_score=self._server_score)
 
     @staticmethod
-    def add_to_existing_score(score, opponent_score):
+    def _add_to_existing_score(score, opponent_score):
         if score == 0:
-            return 15
+            return 15, opponent_score
         elif score == 15:
-            return 30
+            return 30, opponent_score
         elif score == 30:
-            return 40
+            return 40, opponent_score
         elif score == 40:
             if opponent_score == 40:
-                return 'A'
+                return 'A', opponent_score
             elif opponent_score == 'A':
-                # ToDo: Set self.returner_score to 40 using self.set_score() perhaps
-                pass
+                return 40, 40
             else:
-                return 50
+                return 'Win', opponent_score
         elif score == 'A':
-            return 50
+            return 'Win', opponent_score
         else:
             raise ValueError('Score is already maximum 40')
 
     def set_score(self, is_server, score):
         if is_server:
-            self.server_score = score
+            self._server_score = score
         else:
-            self.returner_score = score
+            self._returner_score = score
 
     def get_score(self):
-        return str(self.server_score) + ":" + str(self.returner_score)
+        return str(self._server_score) + ":" + str(self._returner_score)
 
     def server_wins(self):
-        return self.server_score == 50
+        return self._server_score == 'Win'
 
     def returner_wins(self):
-        return self.returner_score == 50
+        return self._returner_score == 'Win'
