@@ -50,8 +50,8 @@ class TennisGame:
     def get_score(self):
         return self._server_score.value + ":" + self._returner_score.value
 
-    def server_wins(self):
-        return self._server_score == TennisScore.Win
-
-    def returner_wins(self):
-        return self._returner_score == TennisScore.Win
+    def is_winner(self, player):
+        if player == TennisPlayer.Server:
+            return self._server_score == TennisScore.Win
+        else:
+            return self._returner_score == TennisScore.Win
